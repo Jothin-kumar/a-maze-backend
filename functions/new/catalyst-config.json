@@ -2,7 +2,7 @@
 	"deployment": {
 		"name": "new",
 		"stack": "python_3_9",
-		"type": "basicio",
+		"type": "advancedio",
 		"env_variables": {}
 	},
 	"execution": {

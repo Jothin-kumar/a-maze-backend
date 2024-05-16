@@ -1,3 +1,7 @@
+from flask import Request, make_response
+import zcatalyst_sdk
+from hashlib import sha1
+
 encodeChrs = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!._$,()"
 decodeToNum = lambda a: encodeChrs.index(a) + 1
 decodeToCoords = lambda alpha: (decodeToNum(alpha[0]), decodeToNum(alpha[1]))
@@ -37,18 +41,25 @@ def validate_maze(data: str, level: str):
     # Now, the maze data is valid
     return
 
-def handler(context, basicio):
-    data = basicio.get_argument('maze-data') or ""
-    lvl = basicio.get_argument('level') or "medium"
-    print = basicio.write
-    set_status = basicio.set_status
-    try:
-        validate_maze(data, lvl)
-        print("Valid maze data")
-        set_status(200)
-    except ValueError as e:
-        print(str(e))
-        set_status(400)
-
-    context.log('Successfully executed basicio function')
-    context.close()
+def handler(request: Request):
+    app = zcatalyst_sdk.initialize()
+    if request.path == "/":
+        data = request.headers.get("maze-data") or ""
+        level = request.headers.get("level") or "medium"
+        try:
+            validate_maze(data, level)
+            DS_T = app.datastore().table("maze_data")
+            try:
+                DS_T.insert_row({
+                    "maze-id": sha1((level + data).encode()).hexdigest(),
+                    "maze-data": data,
+                    "level": level[0]
+                })
+            except Exception as e:
+                if "Duplicate value for maze-id" in str(e):
+                    return make_response("Maze already exists", 400)
+            return make_response("Success", 200)
+        except Exception as e:
+            return make_response(str(e), 400)
+    else:
+        return make_response('Page Not Found', 404)
