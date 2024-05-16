@@ -1,6 +1,6 @@
 from flask import Request, make_response
 import zcatalyst_sdk
-from hashlib import sha1
+
 
 encodeChrs = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!._$,()"
 decodeToNum = lambda a: encodeChrs.index(a) + 1
@@ -53,11 +53,11 @@ def handler(request: Request):
                 maze_id = DS_T.insert_row({
                     "maze-data": level[0] + data
                 })["ROWID"]
-                return make_response(maze_id, 200)
+                return make_response(maze_id, 200), {"Access-Control-Allow-Origin": "https://a-maze.jothin.tech"}
             except Exception as e:
                 if "Duplicate value for maze-id" in str(e):
-                    return make_response("Maze already exists", 400)
+                    return make_response("Maze already exists", 400), {"Access-Control-Allow-Origin": "https://a-maze.jothin.tech"}
         except Exception as e:
-            return make_response(str(e), 400)
+            return make_response(str(e), 400), {"Access-Control-Allow-Origin": "https://a-maze.jothin.tech"}
     else:
-        return make_response('Page Not Found', 404)
+        return make_response('Page Not Found', 404), {"Access-Control-Allow-Origin": "https://a-maze.jothin.tech"}
