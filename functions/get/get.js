@@ -13,8 +13,15 @@ module.exports = (context, basicIO) => {
 	const datastore = app.datastore();
 	const table = datastore.table('maze_data');
 	table.getRow(parseInt(mazeId)).then((row) => {
-		const data = row["maze-data"]
-		basicIO.write(data);
-		context.close();
+		try {
+			const data = row["maze-data"]
+			basicIO.write(data);
+			context.close();
+		}
+		catch (error) {
+			basicIO.setStatus(400);
+			basicIO.write('Error fetching maze data');
+			context.close();
+		}
 	})
 };
