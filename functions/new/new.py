@@ -50,15 +50,14 @@ def handler(request: Request):
             validate_maze(data, level)
             DS_T = app.datastore().table("maze_data")
             try:
-                DS_T.insert_row({
-                    "maze-id": sha1((level + data).encode()).hexdigest(),
+                maze_id = DS_T.insert_row({
                     "maze-data": data,
                     "level": level[0]
-                })
+                })["ROWID"]
+                return make_response(maze_id, 200)
             except Exception as e:
                 if "Duplicate value for maze-id" in str(e):
                     return make_response("Maze already exists", 400)
-            return make_response("Success", 200)
         except Exception as e:
             return make_response(str(e), 400)
     else:
