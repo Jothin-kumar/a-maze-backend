@@ -1,0 +1,9 @@
+{
+	"name": "get",
+	"version": "1.0.0",
+	"main": "get.js",
+	"author": "contact@jothin.tech",
+	"dependencies": {
+		"zcatalyst-sdk-node": "latest"
+	}
+}

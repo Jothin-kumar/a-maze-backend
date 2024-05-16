@@ -1,7 +1,8 @@
 {
   "functions": {
     "targets": [
-      "new"
+      "new",
+      "get"
     ],
     "ignore": [],
     "source": "functions"
