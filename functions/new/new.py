@@ -51,8 +51,7 @@ def handler(request: Request):
             DS_T = app.datastore().table("maze_data")
             try:
                 maze_id = DS_T.insert_row({
-                    "maze-data": data,
-                    "level": level[0]
+                    "maze-data": level[0] + data
                 })["ROWID"]
                 return make_response(maze_id, 200)
             except Exception as e:

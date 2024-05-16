@@ -14,8 +14,7 @@ module.exports = (context, basicIO) => {
 	const table = datastore.table('maze_data');
 	table.getRow(parseInt(mazeId)).then((row) => {
 		const data = row["maze-data"]
-		const lvl = row["level"]
-		basicIO.write(lvl + data);
+		basicIO.write(data);
 		context.close();
 	})
 };
