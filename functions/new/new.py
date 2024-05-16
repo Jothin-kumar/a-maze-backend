@@ -38,7 +38,7 @@ def validate_maze(data: str, level: str):
     return
 
 def handler(context, basicio):
-    data = basicio.get_argument('maze-data')
+    data = basicio.get_argument('maze-data') or ""
     lvl = basicio.get_argument('level') or "medium"
     print = basicio.write
     set_status = basicio.set_status
