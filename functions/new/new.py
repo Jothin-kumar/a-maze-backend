@@ -53,11 +53,11 @@ def handler(request: Request):
                 maze_id = DS_T.insert_row({
                     "maze-data": level[0] + data
                 })["ROWID"]
-                return make_response(maze_id, 200), {"Access-Control-Allow-Origin": "https://a-maze.jothin.tech"}
+                return make_response(maze_id, 200)
             except Exception as e:
                 if "Duplicate value for maze-id" in str(e):
-                    return make_response("Maze already exists", 400), {"Access-Control-Allow-Origin": "https://a-maze.jothin.tech"}
+                    return make_response("Maze already exists", 400)
         except Exception as e:
-            return make_response(str(e), 400), {"Access-Control-Allow-Origin": "https://a-maze.jothin.tech"}
+            return make_response(str(e), 400)
     else:
-        return make_response('Page Not Found', 404), {"Access-Control-Allow-Origin": "https://a-maze.jothin.tech"}
+        return make_response('Page Not Found', 404)
