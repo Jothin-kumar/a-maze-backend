@@ -1,0 +1,11 @@
+{
+	"deployment": {
+		"name": "new",
+		"stack": "python_3_9",
+		"type": "basicio",
+		"env_variables": {}
+	},
+	"execution": {
+		"main": "new.py"
+	}
+}

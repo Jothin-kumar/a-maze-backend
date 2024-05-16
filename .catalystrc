@@ -1,0 +1,30 @@
+{
+  "defaults": {
+    "project": 1,
+    "env": 1
+  },
+  "actives": {
+    "project": 1,
+    "env": 1
+  },
+  "projects": [
+    {
+      "idx": 1,
+      "id": "2826000000013001",
+      "name": "A-Maze",
+      "domain": {
+        "id": "50019348425",
+        "name": "a-maze-60025581671.development"
+      },
+      "timezone": "Asia/Kolkata",
+      "env": [
+        {
+          "idx": 1,
+          "id": "60025581671",
+          "name": "Development",
+          "type": 3
+        }
+      ]
+    }
+  ]
+}
