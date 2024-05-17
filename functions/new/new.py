@@ -44,8 +44,9 @@ def validate_maze(data: str, level: str):
 def handler(request: Request):
     app = zcatalyst_sdk.initialize()
     if request.path == "/":
-        data = request.headers.get("maze-data") or ""
-        level = request.headers.get("level") or "medium"
+        json = request.get_json()
+        data = json.get("maze-data") or ""
+        level = json.get("level") or "medium"
         try:
             validate_maze(data, level)
             DS_T = app.datastore().table("maze_data")
